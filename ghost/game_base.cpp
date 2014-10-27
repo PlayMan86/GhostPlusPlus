@@ -281,6 +281,17 @@ void CBaseGame :: loop( )
 			m_Replay->Save( m_GHost->m_TFT, m_GHost->m_ReplayPath + UTIL_FileSafeName( UTIL_ToString( m_DatabaseID ) + ".w3g" ) );
 		}
 	}
+	
+	// also save lobby chat at this time
+	ofstream fout;
+	fout.open( ( m_GHost->m_ReplayPath + UTIL_FileSafeName( UTIL_ToString( m_DatabaseID ) + ".txt" ) ).c_str( ), ios :: app );
+	if( !fout.fail( ) )
+	{
+		for( vector<string> :: iterator i = m_LobbyChat.begin(); i != m_LobbyChat.end(); ++i )
+			fout << (*i) << endl;
+		
+		fout.close( );
+	}	
 
 	if(m_DoDelete == 1)
 		delete this;
@@ -1427,6 +1438,9 @@ void CBaseGame :: SendAllChat( unsigned char fromPID, string message )
 
 		if( !m_GameLoading && !m_GameLoaded )
 		{
+			// append to our cached lobby chat data
+			m_LobbyChat.push_back( "[System]: " + message );
+			
 			if( message.size( ) > 254 )
 				message = message.substr( 0, 254 );
 
@@ -1722,6 +1736,11 @@ void CBaseGame :: SendEndMessage( )
 void CBaseGame :: EventPlayerDeleted( CGamePlayer *player )
 {
 	CONSOLE_Print( "[GAME: " + m_GameName + "] deleting player [" + player->GetName( ) + "]: " + player->GetLeftReason( ) );
+	
+	
+	// append to our cached lobby chat data
+	m_LobbyChat.push_back( "[System]: *** player [" + player->GetName( ) + "] has left the game (" + player->GetLeftReason( ) + ")" );
+
 
 	// remove any queued spoofcheck messages for this player
 
@@ -2253,6 +2272,11 @@ CGamePlayer *CBaseGame :: EventPlayerJoined( CPotentialPlayer *potential, CIncom
 	// we also have to be careful to not modify the m_Potentials vector since we're currently looping through it
 
 	CONSOLE_Print( "[GAME: " + m_GameName + "] player [" + joinPlayer->GetName( ) + "|" + potential->GetExternalIPString( ) + "] joined the game" );
+	
+	
+	// append to our cached lobby chat data
+	m_LobbyChat.push_back( "[System]: *** player [" + joinPlayer->GetName( ) + "] has joined the game" );
+	
 	CGamePlayer *Player = new CGamePlayer( potential, m_SaveGame ? EnforcePID : GetNewPID( ), JoinedRealm, joinPlayer->GetName( ), joinPlayer->GetInternalIP( ), Reserved );
 
 	if( potential->GetGarenaUser( ) != NULL ) {
@@ -2821,6 +2845,10 @@ void CBaseGame :: EventPlayerChatToHost( CGamePlayer *player, CIncomingChatPlaye
 
 					if( m_MuteLobby )
 						Relay = false;
+						
+					// also append to our cached lobby chat data
+					m_LobbyChat.push_back( "[" + player->GetName( ) + "]: " + chatPlayer->GetMessage( ) );
+
 				}
 			}
 

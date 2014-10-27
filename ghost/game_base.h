@@ -308,7 +308,7 @@ public:
 	virtual void CreateFakePlayer( string name = "" );
 	virtual void CreateFakePlayer( unsigned char SID, string name = "" );
 	virtual void DeleteFakePlayer( );
-	virtual void ShowTeamScores( );
+	virtual void ShowTeamScores( CGamePlayer *player = NULL );
 	virtual string GetJoinedRealm( uint32_t hostcounter );
 };
 

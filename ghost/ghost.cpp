@@ -671,6 +671,35 @@ CGHost :: CGHost( CConfig *CFG )
 		phrasein.close( );
 	}
 
+	m_FlameTriggers.push_back("cunt");
+	m_FlameTriggers.push_back("bitch");
+	m_FlameTriggers.push_back("whore");
+	m_FlameTriggers.push_back("retard");
+	m_FlameTriggers.push_back("nigger");
+	m_FlameTriggers.push_back("dumb");
+	m_FlameTriggers.push_back("fuck you");
+	m_FlameTriggers.push_back("fuck u");
+	m_FlameTriggers.push_back("you suck");
+	m_FlameTriggers.push_back("u suck");
+	m_FlameTriggers.push_back("fucking noob");
+	m_FlameTriggers.push_back("fuck off");
+	m_FlameTriggers.push_back("stupid");
+	m_FlameTriggers.push_back("noob as fuck");
+	m_FlameTriggers.push_back("idiot");
+	m_FlameTriggers.push_back("moron");
+	m_FlameTriggers.push_back("shithead");
+	m_FlameTriggers.push_back("assfuck");
+	m_FlameTriggers.push_back("asshole");
+	m_FlameTriggers.push_back("is shit");
+	m_FlameTriggers.push_back("are shit");
+	m_FlameTriggers.push_back("shitty");
+	m_FlameTriggers.push_back("pussy");
+	m_FlameTriggers.push_back("loser");
+	m_FlameTriggers.push_back("fucking bad");
+	m_FlameTriggers.push_back("faggot");
+	m_FlameTriggers.push_back("dick");
+	m_FlameTriggers.push_back("raizen");	
+	
 	CONSOLE_Print( "[GHOST] Loading GeoIP data" );
 	m_GeoIP = GeoIP_open( m_GeoIPFile.c_str( ), GEOIP_STANDARD | GEOIP_CHECK_CACHE );
 

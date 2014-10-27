@@ -63,7 +63,7 @@ struct GProxyReconnector {
 class CGHost
 {
 public:
-	CUDPSocket *m_UDPSocket;				// a UDP socket for sending broadcasts and other junk (used with !sendlan)
+	vector<CUDPSocket *> m_UDPSockets;		// a UDP socket for sending broadcasts and other junk (used with !sendlan)
 	CUDPSocket *m_GamelistSocket;				// a UDP socket for sending broadcasts and other junk (used with !sendlan)
 	CUDPSocket *m_LocalSocket;				// a UDP socket for sending broadcasts and other junk (used with !sendlan)
 	CTCPServer *m_ReconnectSocket;			// listening socket for GProxy++ reliable reconnects

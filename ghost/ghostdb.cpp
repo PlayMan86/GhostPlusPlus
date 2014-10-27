@@ -388,12 +388,6 @@ CCallableTournamentUpdate *CGHostDB :: ThreadedTournamentUpdate( uint32_t matchi
 	return NULL;
 }
 
-CCallableAdminCommand *CGHostDB :: ThreadedAdminCommand( string admin, string command, string description, string gamename )
-{
-	return NULL;
-}
-
-
 CCallableConnectCheck *CGHostDB :: ThreadedConnectCheck( string name, uint32_t sessionkey )
 {
 	return NULL;
@@ -584,12 +578,7 @@ CCallableTournamentUpdate :: ~CCallableTournamentUpdate( )
 
 }
 
-
 CCallableConnectCheck :: ~CCallableConnectCheck( )
-{
-
-}
-CCallableAdminCommand :: ~CCallableAdminCommand( )
 {
 
 }
